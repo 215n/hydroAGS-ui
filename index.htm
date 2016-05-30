@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>hydroAGS-UI</title>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="http://ha.gk.al/ui/css/uikit.gradient.min.css" />
+		<link rel="stylesheet" href="http://ha.gk.al/ui/css/components/progress.gradient.min.css" />
+		<script src="http://ha.gk.al/ui/js/jquery.min.js"></script>
+		<script src="http://ha.gk.al/ui/js/uikit.min.js"></script>
+		<script src="http://ha.gk.al/ui/js/justgage/raphael.min.js"></script>
+		<script src="http://ha.gk.al/ui/js/justgage/justgage.js"></script>
+	</head>
+	<body>
+			<h1 class="uk-margin-top uk-margin-left">hydroAGS <div class="uk-icon-leaf"></div></h1>
+		<div class="uk-grid">			
+			<div class="uk-width-medium-2-10">
+				<ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#ha-nav'}" id="ha-tab">
+					<li id="ha-dashboard"><a href="#"><div class="uk-icon-dashboard uk-icon-medium"></div> Dashboard</a></li>
+					<li id="ha-status"><a href="#"><div class="uk-icon-tasks uk-icon-medium"></div> Status</a></li>
+					<li id="ha-system"><a href="#"><div class="uk-icon-cogs uk-icon-medium"></div> System</a></li>
+					<li id="ha-setup"><a href="#"><div class="uk-icon-wrench uk-icon-medium"></div> Setup</a></li>
+					<li id="ha-about"><a href="#"><div class="uk-icon-info-circle uk-icon-medium"></div> About</a></li>				
+				</ul>
+			</div>
+			<div class="uk-width-medium-8-10">
+				<ul id="ha-nav" class="uk-switcher">
+					<li>
+						<div class="uk-clearfix">
+							<div class="uk-float-left">
+								<div id="ga-temp-water" style="width:250px; height: 150px;"></div>
+								<div id="ga-temp-air" style="width:250px; height: 150px;"></div>	
+							</div>
+							<div class="uk-float-left">
+								<div id="ga-hum" style="width:180px; height: 100px;"></div>
+								<div id="ga-lum" style="width:180px; height: 100px;"></div>
+								<div id="ga-lev" style="width:180px; height: 100px;"></div>		
+							</div>
+							<div class="uk-float-left">
+								<div id="ga-ph" style="width:180px; height: 100px;"></div>
+								<div id="ga-nut" style="width:180px; height: 100px;"></div>
+								<div id="ga-led" style="width:180px; height: 100px;"></div>		
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="uk-grid">
+							<div class="uk-width-2-3">
+							<table class="uk-table uk-table-striped">
+							  <caption>Status</caption>
+							    <thead>
+							        <tr>
+							            <th>Name</th>
+							            <th>Status</th>
+							            <th>Last run</th>
+							            <th>Next run</th>
+							        </tr>
+							    </thead>
+							    <tbody>
+							        <tr>
+							            <td>Engine 1</td>
+											<td><div id="st-engine1" class="uk-icon-refresh uk-icon-spin"></div></td>
+											<td>00:00:00</td>
+											<td>00:30:30s</td>
+							        </tr>
+										<tr>
+							            <td>Engine 2</td>
+											<td><div id="st-engine2" class="uk-icon-refresh uk-icon-spin"></div></td>
+											<td>00:00:00</td>
+											<td>00:30:30s</td>
+							        </tr>
+							        <tr>
+							            <td>Engine 3</td>
+											<td><div id="st-engine3" class="uk-icon-stop"></div></td>
+											<td>00:12:23</td>
+											<td>-</td>
+							        </tr>
+							        <tr>
+							            <td>Air</td>
+											<td><div id="st-air" class="uk-icon-refresh uk-icon-spin"></div></td>
+											<td>00:00:00</td>
+											<td>00:15:00</td>
+							        </tr>
+							        <tr>
+							            <td>Fan 1</td>
+											<td><div id="st-fan1" class="uk-icon-stop"></div></td>
+											<td>00:10:00</td>
+											<td>00:20:00</td>
+							        </tr>
+ 									  <tr>
+							            <td>Fan 2</td>
+											<td><div id="st-fan2" class="uk-icon-stop"></div></td>
+											<td>00:00:23</td>
+											<td>00:40:00</td>
+							        </tr>
+									  <tr>
+							            <td>Heat</td>
+											<td><div id="st-heat" class="uk-icon-stop"></div></td>
+											<td>01:05:11</td>
+											<td>-</td>
+							        </tr>
+							        <tr>
+							            <td>Nutrients</td>
+											<td><div id="st-nutrients" class="uk-icon-stop"></div></td>
+											<td>01:20:11</td>
+											<td>21:39:49</td>
+							        </tr>
+							    </tbody>
+							</table>		
+							</div>
+							<div class="uk-width-1-3"></div>	
+						</div>	 					
+					</li>					
+					
+					<li>
+						<div class="uk-grid">
+							<div class="uk-width-1-4">
+								<table class="uk-table uk-table-striped">
+								  <caption>Network information</caption>
+								    <tbody>
+								        <tr>
+								            <td><b>MAC:</b></td>
+												<td><span id="mac-addr"></span></td>
+								        </tr>
+										  <tr>
+								            <td><b>IP:</b></td>
+												<td><span id="ip-addr"></span></td>
+								        </tr>
+										  <tr>
+								            <td><b>Subnet Mask:</b></td>
+												<td><span id="ip-sub"></span></td>
+								        </tr>
+										  <tr>
+								            <td><b>Gateway:</b></td>
+												<td><span id="ip-gate"></span></td>
+								        </tr>
+								        <tr>
+								            <td><b>DNS-Server:</b></td>
+												<td><span id="ip-dns"></span></td>
+								        </tr>
+								        <tr>
+								            <td><b>DHCP:</b></td>
+												<td><span id="ip-dhcp"></span></td>
+								        </tr>
+										
+								    </tbody>
+								</table>		
+							</div>	
+							
+							<div class="uk-width-1-4">
+								<table class="uk-table uk-table-striped">
+								  <caption>Version information</caption>
+								    <tbody>
+								        <tr>
+								            <td><b>hydroags-core:</b></td>
+												<td><span id="ha-ver-cor"></span></td>
+								        </tr>
+										  <tr>
+								            <td><b>hydroags-ui</b></td>
+												<td><span id="ha-ver-ui">0.9.11</span></td>
+								        </tr>
+								    </tbody>
+								</table>
+								<table class="uk-table uk-table-striped">
+								  <caption>System information</caption>
+								    <tbody>
+								        <tr>
+								            <td><b>Uptime:</b></td>
+												<td><span id="ha-uptime"></span></td>
+								        </tr>
+											<tr>
+								            <td><b>RAM:</b></td>
+												<td><span id="ha-ram"></span></td>
+								        </tr>
+								    </tbody>
+								</table>										
+							</div>
+							
+							<div class="uk-width-2-4"></div>
+						</div>
+								
+					</li>
+					<li>
+											
+					</li>
+					<li>
+						<div class="uk-clearfix">
+							<div class="uk-float-left">
+								<p>This is the hydroAGS UI. It is part of the hydroAGS project. <br> Use the following links to get further information: </p>
+								<ul class="uk-list">
+									<li><a href="http://ha.gk.al">ha.gk.al - project page (German)</a></li>
+									<li><a href="https://github.com/215n/hydroAGS-core">hydroAGS-core repository</a></li>
+									<li><a href="https://github.com/215n/hydroAGS-ui">hydroAGS-ui repository</a></li>
+								</ul>	
+							</div>				
+							<div class="uk-float-left uk-margin-large-left">
+								<p>The hydroAGS project was built upon the following technologies:
+								<ul class="uk-list">
+									<li><a href="https://arduino.cc">Arduino</a></li>
+									<li><a href="https://github.com/jcw/ethercard">EtherCard library</a></li>
+									<li><a href="http://fastled.io">FastLED library</a></li>
+									<li><a href="http://www.rinkydinkelectronics.com/library.php?id=37">tinyFAT library</a></li>
+									<li><a href="https://jquery.com/">jQuery</a></li>
+									<li><a href="http://getuikit.com/">uikit</a></li>
+									<li><a href="http://justgage.com">JustGage</a></li>
+								</ul>	
+							</div>
+						</div>	
+					</li>				
+				</ul>
+			</div>
+		</div>
+		<script>
+		$( document ).ready(function () {
+			var gaTempWater = new JustGage({
+				id: 'ga-temp-water',
+				value: 20,
+				min: 0,
+				max: 30,
+				pointer: true,
+				title: "Water Temperature",			
+			});	
+			
+			var gaTempAir = new JustGage({
+				id: 'ga-temp-air',
+				value: 25,
+				min: 0,
+				max: 40,
+				pointer: true,
+				title: "Air Temperature"			
+			});	
+			
+			var gaHum = new JustGage({
+				id: 'ga-hum',
+				value: 70,
+				min: 0,
+				max: 100,
+				pointer: true,
+				title: "Humidity"			
+			});	
+			
+			var gaLum = new JustGage({
+				id: 'ga-lum',
+				value: 600,
+				min: 0,
+				max: 1024,
+				pointer: true,
+				title: "Luminosity"			
+			});	
+			
+			var gaLev = new JustGage({
+				id: 'ga-lev',
+				value: 15,
+				min: 5,
+				max: 24,
+				pointer: true,
+				title: "Water Level"			
+			});		
+
+			var gaPH = new JustGage({
+				id: 'ga-ph',
+				value: 688,
+				min: 0,
+				max: 1400,
+				pointer: true,
+				title: "PH Level"			
+			});				
+			
+			var gaNut = new JustGage({
+				id: 'ga-nut',
+				value: 200,
+				min: 0,
+				max: 500,
+				pointer: true,
+				title: "Nutrient Level"			
+			});	
+			
+			var gaLED = new JustGage({
+				id: 'ga-led',
+				value: 235,
+				min: 0,
+				max: 255,
+				pointer: true,
+				title: "LED Output"			
+			});				
+			
+			var activePage;			
+			
+			//-- call everything once, then add to event stack for query every 5s
+			$("#ha-tab").on('change.uk.tab', function (event,ap,pp) {
+								
+				clearInterval(activePage);
+				console.log(ap);
+				
+				if($("#ha-dashboard").hasClass("uk-active"))
+					activePage = setInterval(updateDashboard, 2000);
+				else if($("#ha-status").hasClass("uk-active"))
+					activePage = setInterval(updateStatus, 2000);
+				else if($("#ha-system").hasClass("uk-active"))
+					activePage = setInterval(updateSystem, 2000);
+			})	
+			
+			//-- Dashboard page update procedure
+			function updateDashboard() {
+  				$.getJSON( "http://192.168.1.111/dashboard.ags", function (data) {
+  					var items = [];
+  					$.each(data, function (key, val) {
+  						if (key == "ga-temp-water") 
+  							gaTempWater.refresh(val);	
+  						else if (key == "ga-temp-air") 
+  							gaTempAir.refresh(val);
+  						else if (key == "ga-hum") 
+  							gaHum.refresh(val);
+  						else if (key == "ga-lum") 
+  							gaLum.refresh(val);
+  						else if (key == "ga-level") 
+  							gaLev.refresh(val);
+  						else if (key == "ga-ph") 
+  							gaPH.refresh(val);
+  						else {
+  							
+  						}
+  					})
+  				});
+  			}
+  			
+  			//-- System page update procedure
+  			function updateSystem() {
+  				$.getJSON( "http://192.168.1.111/system.ags", function (data) {
+  					var items = [];
+  					$.each(data, function (key, val) {
+					if(key=="ip-dhcp")
+						if(val == "1")
+							$("#ip-dhcp").removeClass().addClass("uk-icon-check");
+						else
+							$("#ip-dhcp").removeClass().addClass("uk-icon-times");	
+					else  						
+  						$( '#'+key ).text(val);
+  					})
+  				});
+  			}
+  			
+  			//-- Status page update procedure
+  			function updateStatus() {
+  				$.getJSON( "http://192.168.1.111/status.ags", function (data) {
+  					var items = [];
+  					$.each(data, function (key, val) {
+	  					if(val=="1")
+	  						$( "div#"+key ).removeClass().addClass("uk-icon-spin uk-icon-refresh");
+	  					else 
+	  						$( "div#"+key ).removeClass().addClass("uk-icon-stop");
+	  					
+  					})
+  				});
+  			}
+		});
+		</script>
+	</body>
+</html>
