@@ -2,3 +2,8 @@
 This is the web ui of the hydroAGS project. It adds a simple but responsive interface to the greenhouse. This allows for easy monitoring and controling of the unit.
 
 The UI is still in its early stages. Some things might be missing, some features might still be rough arround the edges. Bear with us, please.
+
+hydroAGS-ui is built upon the following libraries:
+- uikit (http://getuikit.com/)
+- justGage (http://justgage.com/)
+- jQuery (https://jquery.com/)
